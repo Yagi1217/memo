@@ -1,0 +1,21 @@
+rem レジストリからSEPのプログラムIDを取得
+set RegQu=reg query HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall /d /f [一覧に表示されているプログラム名] /s /e
+for /f %%A in ('%RegQu%') do (
+set AppId=%%A
+goto :APPIDOK
+)
+
+:APPIDOK
+rem プログラムIDを調整し、アンインストールを行う
+call :GET_FILENAME %AppId%
+set UnInstApp=%_FileName%
+msiexec.exe /x %UnInstApp% /passive
+rem msiexec.exe /x %UnInstApp% /passive /promptrestart
+
+shutdown /r /t 1
+goto :EOF
+
+rem 引数からファイル名と拡張子だけに変換
+:GET_FILENAME
+set _FileName=%~nx1
+goto :EOF
