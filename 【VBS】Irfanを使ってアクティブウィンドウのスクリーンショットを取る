@@ -1,0 +1,43 @@
+'Option Explicit
+
+Dim str1
+Dim str2
+Dim objWshShell
+Dim intProcID
+
+'引数が無い場合は実行しない
+if WScript.Arguments.Count = 0 then
+    WScript.echo("too few arguments.")
+    WScript.Quit(-1)
+end if
+
+'指定したexeファイルのPIDを取得してアクティブにする
+ProgName = Wscript.Arguments(0)
+intProcID = GetProcID(ProgName)
+Set objWshShell = CreateObject("Wscript.Shell")
+objWshShell.AppActivate intProcID
+
+'以下はスクショ用の変数
+str1 = """C:\Program Files\IrfanView\i_view64.exe"""
+str2 = " /capture=2"
+objWshShell.Run str1 & str2,1,False
+
+'終了処理
+Set objWshShell = Nothing
+
+'PID取得用
+Function GetProcID(ProcessName)
+Dim Service
+Dim QfeSet
+Dim Qfe
+Dim intProcID
+
+Set Service = WScript.CreateObject("WbemScripting.SWbemLocator").ConnectServer
+Set QfeSet = Service.ExecQuery("Select * From Win32_Process Where Caption='"& ProcessName &"'")
+
+intProcID = 0
+For Each Qfe in QfeSet
+    intProcID = Qfe.ProcessId
+    Exit For
+Next
+GetProcID = intProcID
