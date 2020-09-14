@@ -1,0 +1,16 @@
+Sub CpuChacker(useRate)
+    Set WshShell=Wscript.CreateObject("Wscript.Shell")
+    Set oLocator = WScript.CreateObject("WbemScripting.SWbemLocator")
+    Set oService = oLocator.ConnectServer
+    Do
+        Set oClassSet = oService.ExecQuery("SELECT * FROM Win32_Processor")
+        For Each oClass In oClassSet
+            CpuInt = CLng(oClass.LoadPercentage)
+        Next
+
+'時間経過によるログオフ回避
+        WshShell.SendKeys("{PRTSC}")
+        WshShell.Run """MSHTA.EXE""" & "javascript:close(clipboardData.clearData())"
+        WshShell.Popup "CPU使用率計測中です" & vbCrLf & "(使用率が" & useRate & "%以下になるまで待機中です)", 5
+    Loop While CpuInt * 2 > useRate
+End Sub
