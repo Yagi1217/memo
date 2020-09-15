@@ -1,7 +1,7 @@
 'Option Explicit
 
-Dim str1
-Dim str2
+Dim IrFanAddress
+Dim MethodCode
 Dim objWshShell
 Dim intProcID
 
@@ -18,9 +18,9 @@ Set objWshShell = CreateObject("Wscript.Shell")
 objWshShell.AppActivate intProcID
 
 '以下はスクショ用の変数
-str1 = """C:\Program Files\IrfanView\i_view64.exe"""
-str2 = " /capture=2"
-objWshShell.Run str1 & str2,1,False
+IrFanAddress = """C:\Program Files\IrfanView\i_view64.exe"""
+MethodCode = " /capture=2"
+objWshShell.Run IrFanAddress & MethodCode,1,False
 
 '終了処理
 Set objWshShell = Nothing
