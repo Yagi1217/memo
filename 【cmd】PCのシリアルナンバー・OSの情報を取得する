@@ -1,7 +1,7 @@
 rem PCのシリアルナンバーを取得する(全部大文字/変数名_SerilStr)
 for /f "usebackq tokens=1 skip=1" %%i in (wmic csproduct get IdentifyingNumber) do (
-if not %%i==nul set SerilStr=%%i
-goto :SeriNext
+    if not %%i==nul set SerilStr=%%i
+    goto :SeriNext
 )
 :SeriNext
 
@@ -9,8 +9,8 @@ rem 使用OSの確認
 ver | find /i "Version 10.0." > nul
 if %ERRORLEVEL% equ 0 (
 rem Windows10の場合
-set OSFlag=WIN10
+    set OSFlag=WIN10
 ) else (
 rem Windows10以外の場合(多分Win7)
-set OSFlag=WIN7
+    set OSFlag=WIN7
 )
