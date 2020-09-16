@@ -1,1 +1,2 @@
 javascript:(function(){document.getElementsByTagName('input')[0].value = [emailAddress]; document.getElementsByTagName('input')[1].value = [Pass]; document.getElementsByTagName('input')[2].checked = true;})();
+'
