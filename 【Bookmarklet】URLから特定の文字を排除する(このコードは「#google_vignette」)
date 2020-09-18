@@ -1,0 +1,2 @@
+javascript:(function(){var theUrl=location.hash;newUrl=theUrl.replace("#google_vignette",%20""); location.replace(newUrl); })();
+'
