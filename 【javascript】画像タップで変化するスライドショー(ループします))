@@ -1,0 +1,22 @@
+<script>
+function imgwin(i){
+	var counter = parseInt(i, 10) + 1;
+
+	var arr = [
+    "《画像ファイルのアドレス1》",
+    "《画像ファイルのアドレス2》",
+    "《画像ファイルのアドレス3》"...
+	];
+
+if (counter >= arr.length) {
+		counter = 0;
+	}else if (counter < 0) {
+		counter = arr.length - 1;
+	}
+
+	document.getElementById("bg").innerHTML = "<img src='" + arr[counter] + "' onclick='" + "imgwin(" + counter + ")" + "'/>";
+	document.getElementById("con").innerHTML = "<span onclick='" + "imgwin(" + ( counter - 2 ) + ")" + "'>Now:" + arr[counter] + "/return</span>";
+};
+</script>
+<div id="con"><span onclick="imgwin(0)">Now:《画像ファイルのアドレス1》/return</span></div>
+<div id="bg"><img src="《画像ファイルのアドレス1》" onclick="imgwin(0)"/></div>
