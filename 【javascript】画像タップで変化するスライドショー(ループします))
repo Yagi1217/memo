@@ -1,5 +1,6 @@
 <script>
 function imgwin(i){
+	//↓なぜか引数のiが10進数で認識しなかったため
 	var counter = parseInt(i, 10) + 1;
 
 	var arr = [
@@ -7,7 +8,7 @@ function imgwin(i){
     "《画像ファイルのアドレス2》",
     "《画像ファイルのアドレス3》"...
 	];
-
+//ここはループ処理
 if (counter >= arr.length) {
 		counter = 0;
 	}else if (counter < 0) {
@@ -18,5 +19,6 @@ if (counter >= arr.length) {
 	document.getElementById("con").innerHTML = "<span onclick='" + "imgwin(" + ( counter - 2 ) + ")" + "'>Now:" + arr[counter] + "/return</span>";
 };
 </script>
+<!--↓Javascriptで変更される箇所-->
 <div id="con"><span onclick="imgwin(0)">Now:《画像ファイルのアドレス1》/return</span></div>
 <div id="bg"><img src="《画像ファイルのアドレス1》" onclick="imgwin(0)"/></div>
