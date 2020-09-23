@@ -1,6 +1,65 @@
 <!DOCTYPE html>
 <html lang="ja">
-<body>
-<h1>Hello Word</h1>
-</body>
+  <head>
+    <meta charset=“UTF-8”>
+    <title>CSS</title>
+    <style>
+a {
+  position: relative;
+  display: block;
+  width: 300px;
+  margin: 40px auto;
+  color: #a8aabc;
+  border: 1px solid #a8aabc;
+  overflow: hidden;
+  
+  .show {
+    position: relative;
+    height: 200px;
+    
+    h1 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 1.5em;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  .hide {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    padding: 28px;
+    color: #ffffff;
+    background-color: #384878;
+    transform: translateY(100%);
+    transition: transform .5s;
+  }
+  
+  &:hover {
+    .hide {
+      transform: translateY(0);
+    }
+  }
+}
+    </style>
+  </head>
+  <body>
+    <h1>Hello Word</h1>
+    <hr>
+  
+  <!--↓ちょっとした検証をしてみる-->
+    <a href="#">
+      <div class="show">
+        <h1>BOX</h1>
+      </div>
+      <div class="hide">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
+      </div>
+    </a>
+
+  </body>
 </html>
