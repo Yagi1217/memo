@@ -1,0 +1,3 @@
+set msg=ここに`nメッセージ
+powershell -Command Add-Type -Assembly System.Windows.Forms;[System.Windows.Forms.MessageBox]::Show('"%msg%'", 'タイトル')
+pause
