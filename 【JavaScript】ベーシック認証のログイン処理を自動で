@@ -1,0 +1,12 @@
+<body onload="login()">
+<script>
+  function login() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://leggiero.sakura.ne.jp/xxxxbasic_auth_testxxxx/secret/kaiin_page_top.htm",
+               false, "kaiin", "naisho");
+//      xhr.send(null);
+      location.href = "http://leggiero.sakura.ne.jp/xxxxbasic_auth_testxxxx/secret/kaiin_page_top.htm";
+  }
+</script>
+</body>
+
