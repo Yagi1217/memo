@@ -1,0 +1,36 @@
+from PIL import Image
+ 
+import pyocr
+import pyocr.builders
+import xlwings as xw
+ 
+tools = pyocr.get_available_tools()
+ 
+tool = tools[0]
+ 
+txt = tool.image_to_string(
+    Image.open('data.png'),
+    lang="eng",
+    builder=pyocr.builders.TextBuilder(tesseract_layout=6)
+)
+print( txt )
+file = open('text-data.txt', 'w')
+
+wb = xw.Book()
+for line_data in open(file, "r"):
+ 
+    sheets = "sheet1"
+    offset_x = int(0 + 1)
+    offset_y = int(0 + 1)
+ 
+    y = 0
+    for text_data in open(file, "r"):
+        data = text_data.split()
+        wb.sheets[sheets].range(offset_y + y, offset_x).value = data
+        y++
+ 
+#Save Excel
+wb.save()
+wb.close()
+ 
+print("text to excel : Done")
