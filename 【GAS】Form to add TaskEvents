@@ -1,0 +1,44 @@
+//カレンダーID
+var CAL_ID = <カレンダーID>;
+function myFunction(e) {
+
+  // getActiveForm を呼び出す権限がありません」を解決するためだけの一文
+  // パーミッションを与えた後は不要
+  // FormApp.getActiveForm();
+
+  // フォームに入力を行ったユーザーのメルアドを取得(フォームの「設定」が必要)
+  var address = e.response.getRespondentEmail();    
+  // フォームの内容を読み取り  
+  var items = e.response.getItemResponses();
+  var result = [];
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var question = item.getItem().getTitle();
+    var answer = item.getResponse();
+    result.push([question, answer]);
+  }
+
+  // 読み取り内容を置き換え
+  var CAL_EVENT_TITLE = result[0][1];
+  var CAL_EVENT_DATE = new Date(result[1][1]);
+  var CAL_EVENT_ENDDATE = new Date(result[2][1]);
+
+  //カレンダーにユーザー追加
+  var cal = CalendarApp.getCalendarById(CAL_ID);
+
+  // 該当日に他のスケジュールが無ければ登録、ある場合には予約失敗を返信する。
+  if(cal.getEvents(CAL_EVENT_DATE, CAL_EVENT_ENDDATE)==0){
+    var events = cal.getEventsForDay(new Date(CAL_EVENT_DATE), {
+        search: CAL_EVENT_TITLE,
+    });
+     var r = cal.createEvent(CAL_EVENT_TITLE, CAL_EVENT_DATE, CAL_EVENT_ENDDATE);
+     var body ="\n\n ご仮予約を承りました。\n 利用開始日" + CAL_EVENT_DATE + "\n 利用終了日" + CAL_EVENT_ENDDATE + "\n\n ありがとうございました"
+ 
+     MailApp.sendEmail(address, "仮ご予約", body);
+
+   } else {
+     var body ="\n\n ご予約の時間に先約がありましたので、\n 申し訳ございませんが、ご予約いただけませんでした。\n\n ご予定を変更して再度お申込みください"
+     MailApp.sendEmail(address, "ご予約できませんでした", body);
+
+   }
+}
